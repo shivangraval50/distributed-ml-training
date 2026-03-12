@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Data
+data/raw/
+data/processed/
+
+# Models
+models/*.pth
+models/*.pt
+
+# MLflow
+mlruns/
+
+# Results
+results/*.png
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log

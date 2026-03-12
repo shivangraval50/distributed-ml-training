@@ -1,0 +1,14 @@
+{
+  "baseline_time_seconds": 3.211289882659912,
+  "distributed_time_seconds": 2.982858896255493,
+  "num_processes": 4,
+  "measured_speedup": 1.0765812243720874,
+  "extrapolated_8hr_minutes": 445.85581573741314,
+  "extrapolated_speedup": 1.0765812243720874,
+  "target_speedup": 10.6,
+  "configuration": {
+    "samples": 50000,
+    "epochs": 5,
+    "batch_size": 256
+  }
+}
