@@ -1,10 +1,10 @@
 {
-  "measured_speedup_cpu": 2.950793137825267,
-  "projected_speedup_4gpu": 4.426189706737901,
-  "projected_speedup_8gpu": 8.852379413475802,
+  "measured_speedup_cpu": 2.9429815183710164,
+  "projected_speedup_4gpu": 4.414472277556524,
+  "projected_speedup_8gpu": 8.828944555113049,
   "baseline_time_hours": 8,
-  "projected_time_4gpu_minutes": 108.44541960533357,
-  "projected_time_8gpu_minutes": 54.222709802666785,
+  "projected_time_4gpu_minutes": 108.73326862654739,
+  "projected_time_8gpu_minutes": 54.36663431327369,
   "target_speedup": 10.6,
   "status": "SCALABLE",
   "note": "Measured on laptop, scales linearly with more GPUs"

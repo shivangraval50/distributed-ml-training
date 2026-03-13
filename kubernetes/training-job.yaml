@@ -1,0 +1,70 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: distributed-training-job
+  labels:
+    app: ml-training
+    project: distributed-training
+spec:
+  parallelism: 4  # 4 parallel workers (simulates 4 GPUs)
+  completions: 1
+  template:
+    metadata:
+      labels:
+        app: ml-training
+    spec:
+      restartPolicy: OnFailure
+      
+      containers:
+      - name: trainer
+        image: pytorch/pytorch:2.0.1-cuda11.8-cudnn8-runtime
+        
+        command: ["python", "-m", "training.distributed_trainer"]
+        
+        env:
+        - name: WORLD_SIZE
+          value: "4"
+        - name: MASTER_ADDR
+          value: "distributed-training-master"
+        - name: MASTER_PORT
+          value: "29500"
+        - name: RANK
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels.rank
+        
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "4"
+            nvidia.com/gpu: "1"
+          limits:
+            memory: "16Gi"
+            cpu: "8"
+            nvidia.com/gpu: "1"
+        
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        - name: models
+          mountPath: /models
+      
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: training-data-pvc
+      - name: models
+        persistentVolumeClaim:
+          claimName: trained-models-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: distributed-training-master
+spec:
+  clusterIP: None  # Headless service
+  selector:
+    app: ml-training
+  ports:
+  - port: 29500
+    name: master-port
